@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.13
+    container_name: nginx
+
+  node1:
+    image: ciceroreis/node:18.17.1
+    container_name: node1
+
+  node2:
+    image: ciceroreis/node:18.17.1
+    container_name: node2
+
+  node3:
+    image: ciceroreis/node:18.17.1
+    container_name: node3
+
+  mongodb:
+    image: mongo:6.0.2
+    container_name: mongodb
+
+  # redis:
+  #   image: redis:alpine
+  #   container_name: redis_cache
+
+  # swagger-editor:
+  #   image: swaggerapi/swagger-editor
+
+  # swagger-ui:
+  #   image: swaggerapi/swagger-ui
+  #   container_name: "swagger-ui"
