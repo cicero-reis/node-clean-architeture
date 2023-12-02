@@ -53,6 +53,12 @@ GET https://localhost/api/tasks
 
 Retorna todas as tarefas cadastradas no sistema.
 
+### Listar Uma Tarefa
+
+GET https://localhost/api/tasks/:taskId
+
+Retorna uma tarefa cadastrada no sistema.
+
 ### Criar uma Nova Tarefa
 
 POST https://localhost/api/tasks
