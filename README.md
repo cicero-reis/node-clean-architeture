@@ -19,7 +19,7 @@ Este é um sistema de gerenciamento de tarefas onde os administradores podem cad
 4. Configure as variáveis de ambiente necessárias para o banco de dados.
 5. Execute `npm run test`.
 
-## Installation
+## Instalação
 
 ```sh
 $ npm install
