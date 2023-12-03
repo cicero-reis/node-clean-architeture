@@ -1,0 +1,209 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Task System",
+    "description": "This is a task management system where administrators can register new tasks and assign them to system users.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://localhost/api",
+      "description": "With docker-compose e nginx proxy"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tasks",
+      "description": "API for system tasks"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "List All Tasks",
+        "responses": {
+          "200": {
+            "description": "Task Object",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create a New Task",
+        "requestBody": {
+          "description": "Task Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task created successfully\",\r\n  \"data\": {}\r\n}",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the task we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Task with id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task Object",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Task",
+        "tags": ["Tasks"],
+        "requestBody": {
+          "description": "Update a specific task.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Task with new values of properties.",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task updated successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a Task",
+        "tags": ["Tasks"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Remove a Task by ID",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task deleted successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "404": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Not found\"\r\n}"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "is_completed": {
+          "type": "boolean"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Tasks": {
+      "Task": "object",
+      "properties": {
+        "task": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Task"
+          }
+        }
+      }
+    }
+  }
+}
