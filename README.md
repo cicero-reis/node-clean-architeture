@@ -45,34 +45,6 @@ $ cd docker
 $ docker-compose up -d
 ```
 
-## Endpoints da API
+## Swagger
 
-### Listar Todas as Tarefas
-
-GET https://localhost/api/tasks
-
-Retorna todas as tarefas cadastradas no sistema.
-
-### Listar Uma Tarefa
-
-GET https://localhost/api/tasks/:taskId
-
-Retorna uma tarefa cadastrada no sistema.
-
-### Criar uma Nova Tarefa
-
-POST https://localhost/api/tasks
-
-Cria uma nova tarefa no sistema. Requer dados específicos no corpo da requisição, como name, user_id, etc.
-
-### Atualizar Tarefa
-
-PUT https://localhost/api/tasks/:taskId
-
-Atualiza uma tarefa específica.
-
-### Remover Tarefa
-
-DELETE https://localhost/api/tasks/:taskId
-
-Remove uma tarefa específica.
+Visit `https://localhost/api/doc` to view the OPENAPI document in Swagger-UI

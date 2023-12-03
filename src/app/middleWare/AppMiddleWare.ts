@@ -17,6 +17,7 @@ const appMiddleWare = (app: Express): void => {
   app.use(helmet())
 
   app.use((_req: Request, _res: Response, next: NextFunction) => {
+    _req.headers['content-type'] = 'application/json'
     console.log('App Middleware')
     next()
   })

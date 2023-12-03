@@ -8,6 +8,8 @@ import errorHttp from './app/middleWare/error/errorHttp'
 import taskMiddleWare from './app/middleWare/TaskMiddleWare'
 import appMiddleWare from './app/middleWare/AppMiddleWare'
 import MongoDB from './config/mongodb-connect'
+import swaggerUi from 'swagger-ui-express'
+import * as swaggerDocument from './swagger.json'
 ;(async () => {
   MongoDB.getInstance().getConnectDB()
 
@@ -18,6 +20,8 @@ import MongoDB from './config/mongodb-connect'
   app.use(requireJsonContent)
   app.use(requestLogger)
   app.use(taskMiddleWare())
+
+  app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.all('*', (req: Request, _res: Response, next: NextFunction) => {
     next(
