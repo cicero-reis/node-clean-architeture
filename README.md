@@ -19,7 +19,7 @@ This is a task management system where administrators can register new tasks and
 4. Configure the required environment variables for the database.
 5. Run `npm run test`.
 
-## Instalação
+## Installation
 
 ```sh
 $ npm install
