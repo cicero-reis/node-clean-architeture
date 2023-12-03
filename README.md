@@ -1,23 +1,23 @@
 # NODE CLEAN ARCHITETURE
 
-## Sistema de Tarefas
+## Task System
 
-Este é um sistema de gerenciamento de tarefas onde os administradores podem cadastrar novas tarefas e atribuí-las aos usuários do sistema.
+This is a task management system where administrators can register new tasks and assign them to system users.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - Node.js
 - TypeScript
 - Express.js
-- Banco de dados MongoDB
+- MongoDB database
 
-## Configuração e Uso
+## Configuration and Use
 
-1. Certifique-se de ter o Node.js instalado.
-2. Clone este repositório.
-3. Execute `npm install` para instalar as dependências.
-4. Configure as variáveis de ambiente necessárias para o banco de dados.
-5. Execute `npm run test`.
+1. Make sure you have Node.js installed.
+2. Clone this repository.
+3. Run `npm install` to install dependencies.
+4. Configure the required environment variables for the database.
+5. Run `npm run test`.
 
 ## Instalação
 
