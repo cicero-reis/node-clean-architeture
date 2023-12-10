@@ -25,4 +25,11 @@ export default class TaskController {
   async destroy(id: string): Promise<boolean | null | never> {
     return await this.taskPresentation.delete(id)
   }
+
+  async completed(
+    id: string,
+    task: ITaskEntity
+  ): Promise<boolean | null | never> {
+    return await this.taskPresentation.completed(id, task)
+  }
 }

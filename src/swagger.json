@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "Task System",
+    "title": "Todo List System",
     "description": "This is a task management system where administrators can register new tasks and assign them to system users.",
     "license": {
       "name": "MIT",
@@ -18,21 +18,179 @@
   "tags": [
     {
       "name": "Tasks",
-      "description": "API for system tasks"
+      "description": "This project consists of a basic system for tasks management, using CRUD (Create, Read, Update, Delete) operations."
+    },
+    {
+      "name": "Users",
+      "description": "This project consists of a basic system for user management, using CRUD (Create, Read, Update, Delete) operations."
     }
   ],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List All Users",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a New User",
+        "requestBody": {
+          "description": "User Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Users"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User created successfully\",\r\n  \"data\": {}\r\n}",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the user we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "User with id",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update User",
+        "tags": ["Users"],
+        "requestBody": {
+          "description": "Update a specific user.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "User with new values of properties.",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User updated successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a User",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Remove a User by ID",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User deleted successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "404": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Not found\"\r\n}"
+          }
+        }
+      }
+    },
     "/tasks": {
       "get": {
         "tags": ["Tasks"],
         "summary": "List All Tasks",
         "responses": {
           "200": {
-            "description": "Task Object",
-            "schema": {
-              "$ref": "#/definitions/Tasks"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Task"
+                }
+              }
             }
           }
         }
@@ -91,9 +249,12 @@
         ],
         "responses": {
           "200": {
-            "description": "Task Object",
-            "schema": {
-              "$ref": "#/definitions/Task"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Task"
+                }
+              }
             }
           },
           "404": {
@@ -167,6 +328,57 @@
           }
         }
       }
+    },
+    "/tasks/completed/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the task we want to find",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "Completed Task",
+        "tags": ["Tasks"],
+        "requestBody": {
+          "description": "Completed a specific task.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/TaskCompleted"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Task with new values of properties.",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task completed successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -174,6 +386,52 @@
       "properties": {
         "uuid": {
           "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Users": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "passwordConfirm": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
         }
       }
     },
@@ -190,6 +448,14 @@
           "type": "boolean"
         },
         "active": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TaskCompleted": {
+      "type": "object",
+      "properties": {
+        "is_completed": {
           "type": "boolean"
         }
       }

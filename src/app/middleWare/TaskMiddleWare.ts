@@ -9,7 +9,8 @@ import {
   TaskReadAllRepository,
   TaskReadOneRepository,
   TaskUpdateRepository,
-  TaskDeleteRepository
+  TaskDeleteRepository,
+  TaskCompletedRepository
 } from '../../core/entity/task'
 
 import {
@@ -17,7 +18,8 @@ import {
   TaskGetAllUseCase,
   TaskGetOneUseCase,
   TaskUpdateUseCase,
-  TaskDeleteUseCase
+  TaskDeleteUseCase,
+  TaskCompletedUseCase
 } from '../../core/usecase/task'
 
 import taskRouter from '../routers/taskRouter'
@@ -29,9 +31,11 @@ import {
   TaskReadAllRepository as repositoryReadAll,
   TaskReadOneRepository as repositoryReadOne,
   TaskUpdateRepository as repositoryUpdate,
-  TaskDeleteRepository as repositoryDelete
+  TaskDeleteRepository as repositoryDelete,
+  TaskCompletedRepository as repositoryCompleted
 } from '../repository/task'
 import { Request } from 'express'
+import { ITaskCompleted } from '../../core/entity/task/repository/completed/ITaskCompleted'
 
 const taskMiddleWare = () => {
   const taskCreate: ITaskCreate<ITaskEntity> = {
@@ -67,6 +71,15 @@ const taskMiddleWare = () => {
     }
   }
 
+  const taskCompleted: ITaskCompleted<ITaskEntity> = {
+    completed: async (
+      id: string,
+      task: ITaskEntity
+    ): Promise<boolean | null | never> => {
+      return await repositoryCompleted.isCompleted(id, task)
+    }
+  }
+
   return taskRouter(
     new TaskController(
       new TaskPresentation(
@@ -74,7 +87,8 @@ const taskMiddleWare = () => {
         new TaskCreateUseCase(new TaskCreateRepository(taskCreate)),
         new TaskGetOneUseCase(new TaskReadOneRepository(taskReadOne)),
         new TaskUpdateUseCase(new TaskUpdateRepository(taskUpdate)),
-        new TaskDeleteUseCase(new TaskDeleteRepository(taskDelete))
+        new TaskDeleteUseCase(new TaskDeleteRepository(taskDelete)),
+        new TaskCompletedUseCase(new TaskCompletedRepository(taskCompleted))
       )
     )
   )

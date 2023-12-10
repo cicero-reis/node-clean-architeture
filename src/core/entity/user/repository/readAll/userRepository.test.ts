@@ -21,7 +21,7 @@ describe('Read one User', () => {
         email: 'user1@gmail.com',
         photo: 'user_photo.png',
         password: 'password',
-        confirmPassword: 'password',
+        passwordConfirm: 'password',
         active: 0
       },
       {
@@ -30,7 +30,7 @@ describe('Read one User', () => {
         email: 'user1@gmail.com',
         photo: 'user_photo.png',
         password: 'password',
-        confirmPassword: 'password',
+        passwordConfirm: 'password',
         active: 0
       }
     ]

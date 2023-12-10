@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer'
+import { Expose, Exclude } from 'class-transformer'
 
 export class UserReadDto {
   @Expose()
@@ -10,9 +10,11 @@ export class UserReadDto {
   @Expose()
   photo!: string
   @Expose()
+  role!: string
+  @Exclude()
   password!: string
-  @Expose()
-  confirmPassword!: string
+  @Exclude()
+  passwordConfirm!: string
   @Expose()
   active?: boolean
 }

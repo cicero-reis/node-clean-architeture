@@ -1,6 +1,6 @@
 # NODE CLEAN ARCHITETURE
 
-## Task System
+## Todo List System
 
 This is a task management system where administrators can register new tasks and assign them to system users.
 

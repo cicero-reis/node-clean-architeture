@@ -6,6 +6,7 @@ import requireJsonContent from './app/middleWare/request/requireJsonContent'
 import requestLogger from './app/middleWare/request/requestLogger'
 import errorHttp from './app/middleWare/error/errorHttp'
 import taskMiddleWare from './app/middleWare/TaskMiddleWare'
+import userMiddleWare from './app/middleWare/UserMiddleWare'
 import appMiddleWare from './app/middleWare/AppMiddleWare'
 import MongoDB from './config/mongodb-connect'
 import swaggerUi from 'swagger-ui-express'
@@ -19,6 +20,8 @@ import * as swaggerDocument from './swagger.json'
 
   app.use(requireJsonContent)
   app.use(requestLogger)
+
+  app.use(userMiddleWare())
   app.use(taskMiddleWare())
 
   app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))

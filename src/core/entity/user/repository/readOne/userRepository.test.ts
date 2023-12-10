@@ -19,9 +19,8 @@ describe('Read one User', () => {
       name: 'User 02',
       email: 'user1@gmail.com',
       photo: 'user_photo.png',
-      password: 'password',
-      confirmPassword: 'password',
-      active: 0
+      role: 'admin',
+      active: true
     }
 
     const dto = plainToClass(UserReadDto, body, {

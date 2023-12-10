@@ -3,7 +3,8 @@ import {
   ITaskGetOneUseCase,
   ITaskGetAllUseCase,
   ITaskUpdateUseCase,
-  ITaskDeleteUseCase
+  ITaskDeleteUseCase,
+  ITaskCompletedUseCase
 } from '../../usecase/task/index'
 import { ITaskEntity } from '../../entity/task/ITaskEntity'
 import ITaskPresentation from './interface/ITaskPresentation'
@@ -16,7 +17,8 @@ export default class TaskPresentation
     private readonly taskCreateUseCase: ITaskCreateUseCase<ITaskEntity>,
     private readonly taskGetOneUseCase: ITaskGetOneUseCase<ITaskEntity>,
     private readonly taskUpdateUseCase: ITaskUpdateUseCase<ITaskEntity>,
-    private readonly taskDeleteUseCase: ITaskDeleteUseCase
+    private readonly taskDeleteUseCase: ITaskDeleteUseCase,
+    private readonly taskCompletedUseCase: ITaskCompletedUseCase<ITaskEntity>
   ) {}
 
   async getAll(req: object): Promise<ITaskEntity[] | null | never> {
@@ -37,5 +39,12 @@ export default class TaskPresentation
 
   async delete(id: string): Promise<boolean | null | never> {
     return await this.taskDeleteUseCase.execute(id)
+  }
+
+  async completed(
+    id: string,
+    task: ITaskEntity
+  ): Promise<boolean | null | never> {
+    return await this.taskCompletedUseCase.execute(id, task)
   }
 }

@@ -10,9 +10,11 @@ export class UserCreateDto {
   @Expose()
   photo!: string
   @Expose()
+  role!: string
+  @Expose()
   password!: string
   @Expose()
-  confirmPassword!: string
-  @Expose()
+  passwordConfirm!: string
+  @Exclude()
   active?: boolean
 }

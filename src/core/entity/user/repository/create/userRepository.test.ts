@@ -1,7 +1,8 @@
 import { IUserEntity } from '../../IUserEntity'
 import { UserCreateDto } from '../../dto/UserCreateDto'
+import { UserReadDto } from '../../dto/UserReadDto'
 import { UserCreateRepository } from './UserCreateRepository'
-import { plainToClass } from 'class-transformer'
+import { plainToClass, plainToInstance } from 'class-transformer'
 import { IUserCreate } from './IUserCreate'
 
 describe('Create user', () => {
@@ -15,13 +16,12 @@ describe('Create user', () => {
 
   test('sould create user', async () => {
     const body = {
-      id: undefined,
       name: 'User 01',
       email: 'user1@gmail.com',
       photo: 'user_photo.png',
-      password: 'password',
-      confirmPassword: 'password',
-      active: 0
+      role: 'admin',
+      password: '!password@2023',
+      passwordConfirm: '!password@2023'
     }
 
     const dto = plainToClass(UserCreateDto, body, {
@@ -34,8 +34,12 @@ describe('Create user', () => {
 
     const repository = new UserCreateRepository(mockUserRepository)
 
-    const result = await repository.insertOne(dto)
+    const response = await repository.insertOne(dto)
 
-    expect(result).toEqual(body)
+    const result = plainToInstance(UserReadDto, response, {
+      excludeExtraneousValues: true
+    })
+
+    expect(result).toEqual(response)
   })
 })

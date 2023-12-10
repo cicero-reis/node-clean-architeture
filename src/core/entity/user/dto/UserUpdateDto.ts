@@ -9,10 +9,12 @@ export class UserUpdateDto {
   email!: string
   @Expose()
   photo!: string
+  @Expose()
+  role!: string
   @Exclude()
   password!: string
   @Exclude()
-  confirmPassword!: string
+  passwordConfirm!: string
   @Exclude()
-  active?: boolean
+  active!: boolean
 }

@@ -1,9 +1,10 @@
 export interface IUserEntity {
-  id: string
+  id?: string
   name: string
   email: string
-  photo: string
-  password: string
-  confirmPassword: string
+  photo?: string
+  role?: string
+  password?: string
+  passwordConfirm?: string
   active?: boolean
 }

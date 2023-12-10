@@ -77,6 +77,21 @@ const taskRouter = (taskController: TaskController) => {
     }
   )
 
+  router.put(
+    '/tasks/completed/:id',
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        await taskController.completed(req.params.id, req.body)
+        res.status(201).json({
+          status: 'success',
+          message: 'Task completed successfully'
+        })
+      } catch (err) {
+        next(err)
+      }
+    }
+  )
+
   return router
 }
 
