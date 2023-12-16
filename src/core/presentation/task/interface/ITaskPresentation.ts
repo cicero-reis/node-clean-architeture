@@ -5,4 +5,5 @@ export default interface ITaskPresentation<T> {
   update(id: string, task: T): Promise<boolean | null | never>
   delete(id: string): Promise<boolean | null | never>
   completed(id: string, task: T): Promise<boolean | null | never>
+  active(id: string, task: T): Promise<boolean | null | never>
 }

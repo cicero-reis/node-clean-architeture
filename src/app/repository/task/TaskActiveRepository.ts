@@ -1,15 +1,15 @@
 import Task from '../../schema/taskShema'
 import { ITaskEntity } from '../../../core/entity/task/ITaskEntity'
 
-export class TaskCompletedRepository {
-  static async isCompleted(
+export class TaskActiveRepository {
+  static async active(
     id: string,
     task: ITaskEntity
   ): Promise<boolean | null | never> {
     try {
       return await Task.findByIdAndUpdate(
         { _id: id },
-        { $set: { is_completed: task.is_completed } },
+        { $set: { active: task.active } },
         { new: true }
       )
     } catch (err) {

@@ -92,6 +92,21 @@ const taskRouter = (taskController: TaskController) => {
     }
   )
 
+  router.put(
+    '/tasks/active/:id',
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        await taskController.active(req.params.id, req.body)
+        res.status(201).json({
+          status: 'success',
+          message: 'Task active successfully'
+        })
+      } catch (err) {
+        next(err)
+      }
+    }
+  )
+
   return router
 }
 

@@ -4,7 +4,7 @@ import { TaskCompletedRepository } from './TaskCompletedRepository'
 import { plainToClass } from 'class-transformer'
 import { ITaskCompleted } from './ITaskCompleted'
 
-describe('Update Task', () => {
+describe('Update Task completed', () => {
   let mockTaskRepository: ITaskCompleted<ITaskEntity>
 
   beforeAll(async () => {
@@ -13,7 +13,7 @@ describe('Update Task', () => {
 
   beforeEach(() => jest.clearAllMocks())
 
-  test('sould update task', async () => {
+  test('sould update task completed', async () => {
     const body = {
       id: '1',
       is_completed: true

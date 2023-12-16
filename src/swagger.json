@@ -379,6 +379,57 @@
           }
         }
       }
+    },
+    "/tasks/active/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the task we want to find",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "summary": "Active Task",
+        "tags": ["Tasks"],
+        "requestBody": {
+          "description": "Active a specific task.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/TaskActive"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Task with new values of properties.",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task active successfully\"\r\n}",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Fail"
+          },
+          "404": {
+            "description": "Fail"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -456,6 +507,14 @@
       "type": "object",
       "properties": {
         "is_completed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TaskActive": {
+      "type": "object",
+      "properties": {
+        "active": {
           "type": "boolean"
         }
       }

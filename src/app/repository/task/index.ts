@@ -4,6 +4,7 @@ import { TaskReadOneRepository } from './TaskReadOneRepository'
 import { TaskUpdateRepository } from './TaskUpdateRepository'
 import { TaskDeleteRepository } from './TaskDeleteRepository'
 import { TaskCompletedRepository } from './TaskCompletedRepository'
+import { TaskActiveRepository } from './TaskActiveRepository'
 
 export {
   TaskCreateRepository,
@@ -11,5 +12,6 @@ export {
   TaskReadOneRepository,
   TaskUpdateRepository,
   TaskDeleteRepository,
-  TaskCompletedRepository
+  TaskCompletedRepository,
+  TaskActiveRepository
 }

@@ -32,4 +32,8 @@ export default class TaskController {
   ): Promise<boolean | null | never> {
     return await this.taskPresentation.completed(id, task)
   }
+
+  async active(id: string, task: ITaskEntity): Promise<boolean | null | never> {
+    return await this.taskPresentation.active(id, task)
+  }
 }
