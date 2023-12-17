@@ -26,7 +26,7 @@ import { initFileLogs, successLogger } from './config/logs'
 
   app.use((_req, res, next) => {
     res.on('finish', () => {
-      if (res.statusCode == 200 && res.statusCode <= 226) {
+      if (res.statusCode >= 200 && res.statusCode <= 226) {
         successLogger.info(
           JSON.stringify({
             stausCode: res.statusCode,
