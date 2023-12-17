@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import AppError from './AppError'
+import { errorLogger } from '../../../config/logs'
 
 const errorHttp = (
   error: AppError,
@@ -18,6 +19,15 @@ const errorHttp = (
       message: error.message,
       stack: error.stack
     })
+
+    errorLogger.error(
+      JSON.stringify({
+        name: error.name,
+        error: error,
+        message: error.message,
+        stack: error.stack
+      })
+    )
   }
 
   if (process.env.NODE_ENV == 'production') {

@@ -10,9 +10,12 @@ import userMiddleWare from './app/middleWare/UserMiddleWare'
 import appMiddleWare from './app/middleWare/AppMiddleWare'
 import MongoDB from './config/mongodb-connect'
 import swaggerUi from 'swagger-ui-express'
-import * as swaggerDocument from './swagger.json'
+import * as swaggerDocument from './config/swagger.json'
+import { initFileLogs, successLogger } from './config/logs'
 ;(async () => {
   MongoDB.getInstance().getConnectDB()
+
+  initFileLogs()
 
   const PORT = process.env.PORT || 3000
 
@@ -20,6 +23,20 @@ import * as swaggerDocument from './swagger.json'
 
   app.use(requireJsonContent)
   app.use(requestLogger)
+
+  app.use((_req, res, next) => {
+    res.on('finish', () => {
+      if (res.statusCode == 200 && res.statusCode <= 226) {
+        successLogger.info(
+          JSON.stringify({
+            stausCode: res.statusCode,
+            statusMessage: res.statusMessage
+          })
+        )
+      }
+    })
+    next()
+  })
 
   app.use(userMiddleWare())
   app.use(taskMiddleWare())
