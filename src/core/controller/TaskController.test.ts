@@ -29,7 +29,8 @@ describe('Presentation router task', () => {
       create: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
-      completed: jest.fn()
+      completed: jest.fn(),
+      active: jest.fn()
     }
   })
 
