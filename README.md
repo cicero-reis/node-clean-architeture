@@ -9,7 +9,7 @@ This is a task management system where administrators can register new tasks and
 - Node.js
 - TypeScript
 - Express.js
-- MongoDB database
+- MongoDB
 - Redis [black list de tokens]
 
 ## Configuration and Use
