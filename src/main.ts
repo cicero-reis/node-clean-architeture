@@ -4,14 +4,20 @@ import { NextFunction, Request, Response } from 'express'
 import AppError from './app/middleWare/error/AppError'
 import requireJsonContent from './app/middleWare/request/requireJsonContent'
 import requestLogger from './app/middleWare/request/requestLogger'
+import dotenv from 'dotenv'
+dotenv.config()
+
 import errorHttp from './app/middleWare/error/errorHttp'
 import taskMiddleWare from './app/middleWare/TaskMiddleWare'
 import userMiddleWare from './app/middleWare/UserMiddleWare'
+import loginRouter from './app/routers/loginRouter'
 import appMiddleWare from './app/middleWare/AppMiddleWare'
 import MongoDB from './config/mongodb-connect'
 import swaggerUi from 'swagger-ui-express'
 import * as swaggerDocument from './config/swagger.json'
 import { initFileLogs, successLogger } from './config/logs'
+import './config/redis/allowListRefreshToken'
+import './config/redis/blocklist'
 ;(async () => {
   MongoDB.getInstance().getConnectDB()
 
@@ -38,6 +44,7 @@ import { initFileLogs, successLogger } from './config/logs'
     next()
   })
 
+  app.use(loginRouter())
   app.use(userMiddleWare())
   app.use(taskMiddleWare())
 

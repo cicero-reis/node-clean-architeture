@@ -1,23 +1,21 @@
-import express, { Request, Response, NextFunction } from 'express'
-import TaskController from '../../core/controller/TaskController'
+import express, { Request, Response, NextFunction, Router } from 'express'
+import TaskController from '../../core/controller/task/TaskController'
+import AuthMiddleWare from '../middleWare/AuthMiddleWare'
 
 const taskRouter = (taskController: TaskController) => {
-  const router = express.Router()
+  const router: Router = express.Router()
 
-  router.get(
-    '/tasks',
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const tasks = await taskController.index(req)
-        res.status(200).json(tasks)
-      } catch (err) {
-        next(err)
-      }
+  router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const tasks = await taskController.index(req)
+      res.status(200).json(tasks)
+    } catch (err) {
+      next(err)
     }
-  )
+  })
 
   router.get(
-    '/tasks/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const task = await taskController.show(req.params.id)
@@ -28,25 +26,22 @@ const taskRouter = (taskController: TaskController) => {
     }
   )
 
-  router.post(
-    '/tasks',
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const task = await taskController.store(req.body)
+  router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const task = await taskController.store(req.body)
 
-        res.status(201).json({
-          status: 'success',
-          message: 'Task created successfully',
-          data: task
-        })
-      } catch (err) {
-        next(err)
-      }
+      res.status(201).json({
+        status: 'success',
+        message: 'Task created successfully',
+        data: task
+      })
+    } catch (err) {
+      next(err)
     }
-  )
+  })
 
   router.put(
-    '/tasks/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         await taskController.update(req.params.id, req.body)
@@ -61,7 +56,7 @@ const taskRouter = (taskController: TaskController) => {
   )
 
   router.delete(
-    '/tasks/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const task = await taskController.destroy(req.params.id)
@@ -78,7 +73,7 @@ const taskRouter = (taskController: TaskController) => {
   )
 
   router.put(
-    '/tasks/completed/:id',
+    '/completed/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         await taskController.completed(req.params.id, req.body)
@@ -93,7 +88,7 @@ const taskRouter = (taskController: TaskController) => {
   )
 
   router.put(
-    '/tasks/active/:id',
+    '/active/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         await taskController.active(req.params.id, req.body)
@@ -107,7 +102,15 @@ const taskRouter = (taskController: TaskController) => {
     }
   )
 
-  return router
+  const routerTaskGroup: Router = express.Router()
+
+  routerTaskGroup.use((_req: Request, _res: Response, next: NextFunction) => {
+    next()
+  })
+
+  routerTaskGroup.use('/tasks', AuthMiddleWare.auth, router)
+
+  return routerTaskGroup
 }
 
 export default taskRouter

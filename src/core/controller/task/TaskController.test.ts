@@ -1,8 +1,8 @@
-import { ITaskEntity } from '../entity/task'
+import { ITaskEntity } from '../../entity/task'
 import TaskController from './TaskController'
-import ITaskPresentation from '../presentation/task/interface/ITaskPresentation'
+import ITaskPresentation from '../../presentation/task/interface/ITaskPresentation'
 import { plainToClass } from 'class-transformer'
-import { TaskActiveDto } from '../entity/task/dto/TaskActiveDto'
+import { TaskActiveDto } from '../../entity/task/dto/TaskActiveDto'
 
 describe('Presentation router task', () => {
   let mockTaskPresentation: ITaskPresentation<ITaskEntity>

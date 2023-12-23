@@ -21,7 +21,7 @@ import {
 } from '../../core/usecase/user'
 
 import userRouter from '../routers/userRouter'
-import UserController from '../../core/controller/UserController'
+import UserController from '../../core/controller/user/UserController'
 import UserPresentation from '../../core/presentation/user/UserPresentation'
 
 import {

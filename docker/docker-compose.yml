@@ -21,9 +21,9 @@ services:
     image: mongo:6.0.2
     container_name: mongodb
 
-  # redis:
-  #   image: redis:alpine
-  #   container_name: redis_cache
+  redis:
+    image: redis:alpine
+    container_name: redis
 
   # swagger-editor:
   #   image: swaggerapi/swagger-editor

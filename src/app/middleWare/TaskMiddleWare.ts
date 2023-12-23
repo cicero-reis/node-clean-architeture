@@ -26,7 +26,7 @@ import {
 } from '../../core/usecase/task'
 
 import taskRouter from '../routers/taskRouter'
-import TaskController from '../../core/controller/TaskController'
+import TaskController from '../../core/controller/task/TaskController'
 import TaskPresentation from '../../core/presentation/task/TaskPresentation'
 
 import {

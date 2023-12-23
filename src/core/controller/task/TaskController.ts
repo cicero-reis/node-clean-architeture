@@ -1,5 +1,5 @@
-import { ITaskEntity } from '../entity/task'
-import ITaskPresentation from '../presentation/task/interface/ITaskPresentation'
+import { ITaskEntity } from '../../entity/task'
+import ITaskPresentation from '../../presentation/task/interface/ITaskPresentation'
 
 export default class TaskController {
   constructor(

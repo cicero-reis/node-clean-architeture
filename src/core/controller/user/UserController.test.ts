@@ -1,6 +1,6 @@
-import { IUserEntity } from '../entity/user'
+import { IUserEntity } from '../../entity/user'
 import UserController from './UserController'
-import IUserPresentation from '../presentation/user/interface/IUserPresentation'
+import IUserPresentation from '../../presentation/user/interface/IUserPresentation'
 
 describe('Presentation router user', () => {
   let mockUserkPresentation: IUserPresentation<IUserEntity>

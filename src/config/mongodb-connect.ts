@@ -15,7 +15,7 @@ export default class MongoDB {
   getConnectDB = () => {
     mongoose.connect('mongodb://mongodb:27017/db_store').then(
       () => {
-        console.log('MongoDB conectado com sucesso')
+        console.log('connected to mongodb successfully!')
       },
       (err) => {
         return err

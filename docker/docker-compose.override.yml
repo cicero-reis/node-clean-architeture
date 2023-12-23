@@ -67,12 +67,12 @@ services:
     networks:
       - api-network
 
-  # redis:
-  #   ports:
-  #     - 6379:6379
-  #   restart: always
-  #   networks:
-  #     - api-network
+  redis:
+    ports:
+      - 6379:6379
+    restart: always
+    networks:
+      - api-network
 
   # swagger-editor:
   #   ports:

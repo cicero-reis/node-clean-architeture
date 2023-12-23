@@ -1,23 +1,21 @@
-import express, { Request, Response, NextFunction } from 'express'
-import UserController from '../../core/controller/UserController'
+import express, { Request, Response, NextFunction, Router } from 'express'
+import UserController from '../../core/controller/user/UserController'
+import AuthMiddleWare from '../middleWare/AuthMiddleWare'
 
 const userRouter = (userController: UserController) => {
-  const router = express.Router()
+  const router: Router = express.Router()
 
-  router.get(
-    '/users',
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const users = await userController.index(req)
-        res.status(200).json(users)
-      } catch (err) {
-        next(err)
-      }
+  router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const users = await userController.index(req)
+      res.status(200).json(users)
+    } catch (err) {
+      next(err)
     }
-  )
+  })
 
   router.get(
-    '/users/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = await userController.show(req.params.id)
@@ -28,25 +26,22 @@ const userRouter = (userController: UserController) => {
     }
   )
 
-  router.post(
-    '/users',
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const user = await userController.store(req.body)
+  router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await userController.store(req.body)
 
-        res.status(201).json({
-          status: 'success',
-          message: 'User created successfully',
-          data: user
-        })
-      } catch (err) {
-        next(err)
-      }
+      res.status(201).json({
+        status: 'success',
+        message: 'User created successfully',
+        data: user
+      })
+    } catch (err) {
+      next(err)
     }
-  )
+  })
 
   router.put(
-    '/users/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         await userController.update(req.params.id, req.body)
@@ -61,7 +56,7 @@ const userRouter = (userController: UserController) => {
   )
 
   router.delete(
-    '/users/:id',
+    '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = await userController.destroy(req.params.id)
@@ -77,7 +72,15 @@ const userRouter = (userController: UserController) => {
     }
   )
 
-  return router
+  const routerUserGroup: Router = express.Router()
+
+  routerUserGroup.use((_req: Request, _res: Response, next: NextFunction) => {
+    next()
+  })
+
+  routerUserGroup.use('/users', AuthMiddleWare.auth, router)
+
+  return routerUserGroup
 }
 
 export default userRouter

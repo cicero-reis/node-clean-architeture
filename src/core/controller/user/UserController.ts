@@ -1,5 +1,5 @@
-import { IUserEntity } from '../entity/user'
-import IUserPresentation from '../presentation/user/interface/IUserPresentation'
+import { IUserEntity } from '../../entity/user'
+import IUserPresentation from '../../presentation/user/interface/IUserPresentation'
 
 export default class UserController {
   constructor(

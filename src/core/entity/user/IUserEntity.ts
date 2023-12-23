@@ -7,4 +7,7 @@ export interface IUserEntity {
   password?: string
   passwordConfirm?: string
   active?: boolean
+  passwordChangedAt?: Date
+  passwordResetToken?: string
+  passwordResetExpires?: Date
 }
