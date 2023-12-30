@@ -2,7 +2,6 @@ import { Schema, Document, Date, model } from 'mongoose'
 import { IUserEntity } from '../../core/entity/user'
 import validator from 'validator'
 import bcrypt from 'bcryptjs'
-import crypto from 'crypto'
 
 interface IUser extends Document {
   id: string
@@ -77,34 +76,6 @@ userSchema.pre('save', async function (next) {
   this.passwordChangedAt = new Date(Date.now() - 1000)
   next()
 })
-
-userSchema.methods.correctPassword = async (
-  requestPassword: string,
-  userPassword: string
-): Promise<boolean> => {
-  return await bcrypt.compare(requestPassword, userPassword)
-}
-
-userSchema.methods.changedPasswordAfter = function (
-  JWTTimestamp: number
-): boolean {
-  if (this.passwordChangedAt) {
-    const passwordChangedAt = this.passwordChangedAt.getTime() / 1000
-    const changedTimestamp = parseInt(passwordChangedAt.toString(), 10)
-    return JWTTimestamp < changedTimestamp
-  }
-  return false
-}
-
-userSchema.methods.createPasswordResetToken = function () {
-  const resetToken = crypto.randomBytes(32).toString('hex')
-  this.passwordResetToken = crypto
-    .createHash('sha256')
-    .update(resetToken)
-    .digest('hex')
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000
-  return resetToken
-}
 
 const User = model<IUserEntity>('user', userSchema)
 

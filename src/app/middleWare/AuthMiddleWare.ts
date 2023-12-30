@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 import AppError from './error/AppError'
 import blocklist from '../../config/redis/blocklist'
 import User from '../schema/userShema'
-import { verifyToken } from '../utils/checkToken'
-import { checksIfTheUserChangedThePasswordAfterTheTokenWasGenerated } from '../utils/checksUserChangedPassword'
+import verifyToken from '../utils/auth/checkToken'
+import { checksIfTheUserChangedThePasswordAfterTheTokenWasGenerated } from '../utils/auth/checksUserChangedPassword'
 
 export class AuthMiddleWare {
   static auth = async (req: Request, _res: Response, next: NextFunction) => {

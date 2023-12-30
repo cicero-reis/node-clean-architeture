@@ -25,9 +25,6 @@ services:
     image: redis:alpine
     container_name: redis
 
-  # swagger-editor:
-  #   image: swaggerapi/swagger-editor
-
-  # swagger-ui:
-  #   image: swaggerapi/swagger-ui
-  #   container_name: "swagger-ui"
+  redislabs:
+    image: redislabs/redisinsight:latest
+    container_name: redislabs

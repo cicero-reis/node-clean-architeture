@@ -1,12 +1,10 @@
-import { plainToClass } from 'class-transformer'
 import ILogin from './ILogin'
 import LoginRepository from './LoginRepository'
-import LoginRequestDto from '../dto/LoginRequestDto'
-import ILoginEntity from '../ILoginEntity'
-import LoginResponseDto from '../dto/LoginResponseDto'
+import ILoginRequestDto from '../dto/ILoginRequestDto'
+import ILoginResponseDto from '../dto/ILoginResponseDto'
 
 describe('Login', () => {
-  let mockLogin: ILogin<ILoginEntity>
+  let mockLogin: ILogin<ILoginRequestDto, ILoginResponseDto>
 
   beforeAll(async () => {
     mockLogin = {
@@ -22,23 +20,24 @@ describe('Login', () => {
       password: 'password'
     }
 
-    const dto = plainToClass(LoginRequestDto, body, {
-      excludeExtraneousValues: true
-    })
+    const response = { acessToken: 'acessToken', refreshToken: 'refreshToken' }
 
     jest
       .spyOn(mockLogin, 'login')
-      .mockImplementation(() => Promise.resolve(dto))
+      .mockImplementation(() => Promise.resolve(response))
 
     const repository = new LoginRepository(mockLogin)
-    const result = await repository.login(dto)
+    const result = await repository.login(body)
 
-    result.token = 'clksmvfkgnrenvfnvlflvk'
+    let dados = undefined
 
-    const response = plainToClass(LoginResponseDto, result, {
-      excludeExtraneousValues: true
-    })
+    if (typeof result === 'boolean') {
+      dados = false
+    } else {
+      const { acessToken, refreshToken } = result
+      dados = { acessToken, refreshToken }
+    }
 
-    expect(result).toEqual(response)
+    expect(result).toEqual(dados)
   })
 })

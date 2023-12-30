@@ -1,14 +1,16 @@
-import ILoginEntity from '../../entity/auth/ILoginEntity'
 import LoginController from './LoginController'
 import ILoginPresentation from '../../presentation/auth/interface/ILoginPresentation'
+import { ILoginRequestDto, ILoginResponseDto } from '../../entity/auth'
 
 describe('Controller login', () => {
-  let mockLoginPresentation: ILoginPresentation<ILoginEntity>
+  let mockLoginPresentation: ILoginPresentation<
+    ILoginRequestDto,
+    ILoginResponseDto
+  >
 
-  const body = {
-    email: 'user01@gmail.com',
-    password: 'password'
-  }
+  const body = { email: 'user01@gmail.com', password: 'password' }
+
+  const response = { acessToken: 'acessToken', refreshToken: 'refreshToken' }
 
   beforeAll(() => {
     mockLoginPresentation = {
@@ -24,13 +26,21 @@ describe('Controller login', () => {
     test('should return user valid', async () => {
       jest
         .spyOn(mockLoginPresentation, 'login')
-        .mockImplementation(() => Promise.resolve(body))
+        .mockImplementation(() => Promise.resolve(response))
 
       const controller = new LoginController(mockLoginPresentation)
 
       const result = await controller.login(body)
 
-      expect(result).toEqual(body)
+      let dados = undefined
+      if (typeof result === 'boolean') {
+        dados = false
+      } else {
+        const { acessToken, refreshToken } = result
+        dados = { acessToken, refreshToken }
+      }
+
+      expect(result).toEqual(dados)
     })
   })
 })

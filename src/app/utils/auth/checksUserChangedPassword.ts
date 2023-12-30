@@ -1,4 +1,4 @@
-import { IUserEntity } from '../../core/entity/user'
+import { IUserEntity } from '../../../core/entity/user'
 
 export function checksIfTheUserChangedThePasswordAfterTheTokenWasGenerated(
   user: IUserEntity,

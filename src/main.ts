@@ -1,16 +1,17 @@
 #!/usr/bin/env node
+import dotenv from 'dotenv'
+dotenv.config()
+
 import app from './config/custom-express'
 import { NextFunction, Request, Response } from 'express'
 import AppError from './app/middleWare/error/AppError'
 import requireJsonContent from './app/middleWare/request/requireJsonContent'
 import requestLogger from './app/middleWare/request/requestLogger'
-import dotenv from 'dotenv'
-dotenv.config()
 
 import errorHttp from './app/middleWare/error/errorHttp'
 import taskMiddleWare from './app/middleWare/TaskMiddleWare'
 import userMiddleWare from './app/middleWare/UserMiddleWare'
-import loginRouter from './app/routers/loginRouter'
+import loginMiddleware from './app/middleWare/LoginMiddleWare'
 import appMiddleWare from './app/middleWare/AppMiddleWare'
 import MongoDB from './config/mongodb-connect'
 import swaggerUi from 'swagger-ui-express'
@@ -44,7 +45,7 @@ import './config/redis/blocklist'
     next()
   })
 
-  app.use(loginRouter())
+  app.use(loginMiddleware())
   app.use(userMiddleWare())
   app.use(taskMiddleWare())
 
