@@ -1,9 +1,5 @@
 name: Deployment Node Clean Architeture
-on:
-  pull_request:
-    types:
-      - opened
-  workflow_dispatch:
+on: push
 jobs:
   lint:
     runs-on: ubuntu-latest
