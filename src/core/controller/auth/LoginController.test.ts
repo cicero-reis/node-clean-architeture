@@ -32,15 +32,7 @@ describe('Controller login', () => {
 
       const result = await controller.login(body)
 
-      let dados = undefined
-      if (typeof result === 'boolean') {
-        dados = false
-      } else {
-        const { acessToken, refreshToken } = result
-        dados = { acessToken, refreshToken }
-      }
-
-      expect(result).toEqual(dados)
+      expect(result).toEqual(response)
     })
   })
 })
