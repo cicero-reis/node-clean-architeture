@@ -1,3 +1,3 @@
-export interface IUserDeleteUseCase {
+export default interface IUserDeleteUseCase {
   execute: (id: string) => Promise<boolean | null | never>
 }

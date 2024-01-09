@@ -1,8 +1,4 @@
-import { ITaskEntity } from '../../ITaskEntity'
-import { TaskReadAllRepository } from './TaskReadAllRepository'
-import { plainToInstance } from 'class-transformer'
-import { ITaskReadAll } from './ITaskReadAll'
-import { TaskReadDto } from '../../dto/TaskReadDto'
+import { ITaskEntity, TaskReadAllRepository, ITaskReadAll } from '../../index'
 
 describe('Read one Task', () => {
   let mockTaskRepository: ITaskReadAll<ITaskEntity>
@@ -14,35 +10,31 @@ describe('Read one Task', () => {
   beforeEach(() => jest.clearAllMocks())
 
   test('sould read one task', async () => {
-    const tasks = [
+    const body = [
       {
         id: '1234',
         name: 'task 01',
-        user_id: 1,
+        user_id: 'user_id',
         is_completed: false,
         active: true
       },
       {
         id: '1235',
         name: 'task 02',
-        user_id: 2,
+        user_id: 'user_id',
         is_completed: false,
         active: true
       }
     ]
 
-    const response = plainToInstance(TaskReadDto, tasks, {
-      excludeExtraneousValues: true
-    })
-
     jest
       .spyOn(mockTaskRepository, 'read')
-      .mockImplementation(() => Promise.resolve(response))
+      .mockImplementation(() => Promise.resolve(body))
 
     const taskReadAllRepository = new TaskReadAllRepository(mockTaskRepository)
 
     const result = await taskReadAllRepository.readAll({})
 
-    expect(result).toStrictEqual(response)
+    expect(result).toEqual(body)
   })
 })

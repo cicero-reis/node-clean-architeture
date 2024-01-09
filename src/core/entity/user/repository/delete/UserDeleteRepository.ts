@@ -1,7 +1,6 @@
-import { IUserRepository } from './IUserRepository'
-import { IUserDelete } from './IUserDelete'
+import { IUserDeleteRepository, IUserDelete } from '../../index'
 
-export class UserDeleteRepository implements IUserRepository {
+export default class UserDeleteRepository implements IUserDeleteRepository {
   constructor(private readonly _repository: IUserDelete) {}
 
   async deleteOne(id: string): Promise<boolean | null | never> {

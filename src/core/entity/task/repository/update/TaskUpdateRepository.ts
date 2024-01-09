@@ -1,10 +1,10 @@
 import { plainToClass } from 'class-transformer'
-import { ITaskEntity } from '../../ITaskEntity'
-import { ITaskRepository } from './ITaskRepository'
-import { ITaskUpdate } from './ITaskUpdate'
-import { TaskUpdateDto } from '../../dto/TaskUpdateDto'
+import { ITaskEntity, ITaskUpdateRepository, ITaskUpdate } from '../../index'
+import TaskUpdateDto from '../../dto/TaskUpdateDto'
 
-export class TaskUpdateRepository implements ITaskRepository<ITaskEntity> {
+export default class TaskUpdateRepository
+  implements ITaskUpdateRepository<ITaskEntity>
+{
   constructor(private readonly _repository: ITaskUpdate<ITaskEntity>) {}
 
   async updateOne(

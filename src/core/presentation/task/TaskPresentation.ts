@@ -7,7 +7,7 @@ import {
   ITaskCompletedUseCase,
   ITaskActiveUseCase
 } from '../../usecase/task/index'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { ITaskEntity } from '../../entity/task'
 import ITaskPresentation from './interface/ITaskPresentation'
 
 export default class TaskPresentation

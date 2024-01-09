@@ -12,6 +12,7 @@ import {
   TaskDeleteRepository,
   TaskCompletedRepository,
   TaskActiveRepository,
+  ITaskCompleted,
   ITaskActive
 } from '../../core/entity/task'
 
@@ -39,7 +40,6 @@ import {
   TaskActiveRepository as repositoryActive
 } from '../repository/task'
 import { Request } from 'express'
-import { ITaskCompleted } from '../../core/entity/task/repository/completed/ITaskCompleted'
 
 const taskMiddleWare = () => {
   const taskCreate: ITaskCreate<ITaskEntity> = {

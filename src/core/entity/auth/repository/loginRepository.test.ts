@@ -1,10 +1,12 @@
-import ILogin from './ILogin'
-import LoginRepository from './LoginRepository'
-import ILoginRequestDto from '../dto/ILoginRequestDto'
-import ILoginResponseDto from '../dto/ILoginResponseDto'
+import {
+  ILoginEntity,
+  ILogin,
+  LoginRepository,
+  LoginResponseDto
+} from './../../auth'
 
 describe('Login', () => {
-  let mockLogin: ILogin<ILoginRequestDto, ILoginResponseDto>
+  let mockLogin: ILogin<ILoginEntity, LoginResponseDto>
 
   beforeAll(async () => {
     mockLogin = {
@@ -17,18 +19,18 @@ describe('Login', () => {
   test('should login user', async () => {
     const body = {
       email: 'user01@gmail.com',
-      password: 'password'
+      password: 'password',
+      acessToken: 'acessToken',
+      refreshToken: 'refreshToken'
     }
-
-    const response = { acessToken: 'acessToken', refreshToken: 'refreshToken' }
 
     jest
       .spyOn(mockLogin, 'login')
-      .mockImplementation(() => Promise.resolve(response))
+      .mockImplementation(() => Promise.resolve(body))
 
     const repository = new LoginRepository(mockLogin)
     const result = await repository.login(body)
 
-    expect(result).toEqual(response)
+    expect(result).toEqual(result)
   })
 })

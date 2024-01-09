@@ -1,10 +1,14 @@
 import { plainToClass } from 'class-transformer'
-import { IUserEntity } from '../../IUserEntity'
-import { IUserRepository } from './IUserRepository'
-import { IUserUpdate } from './IUserUpdate'
-import { UserUpdateDto } from '../../dto/UserUpdateDto'
+import {
+  IUserEntity,
+  IUserUpdateRepository,
+  IUserUpdate,
+  UserUpdateDto
+} from '../../index'
 
-export class UserUpdateRepository implements IUserRepository<IUserEntity> {
+export default class UserUpdateRepository
+  implements IUserUpdateRepository<IUserEntity>
+{
   constructor(private readonly _repository: IUserUpdate<IUserEntity>) {}
 
   async updateOne(

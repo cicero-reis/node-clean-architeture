@@ -1,5 +1,4 @@
-import { UserDeleteRepository } from './UserDeleteRepository'
-import { IUserDelete } from './IUserDelete'
+import { UserDeleteRepository, IUserDelete } from '../../index'
 
 describe('Delete User', () => {
   let mockUserRepository: IUserDelete

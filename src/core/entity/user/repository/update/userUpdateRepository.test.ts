@@ -1,8 +1,10 @@
-import { IUserEntity } from '../../IUserEntity'
-import { UserUpdateDto } from '../../dto/UserUpdateDto'
-import { UserUpdateRepository } from './UserUpdateRepository'
 import { plainToClass } from 'class-transformer'
-import { IUserUpdate } from './IUserUpdate'
+import {
+  IUserEntity,
+  IUserUpdate,
+  UserUpdateRepository,
+  UserUpdateDto
+} from '../../index'
 
 describe('Update User', () => {
   let mockUserRepository: IUserUpdate<IUserEntity>

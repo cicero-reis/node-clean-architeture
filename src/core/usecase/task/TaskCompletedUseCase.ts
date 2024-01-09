@@ -1,8 +1,7 @@
-import { TaskCompletedRepository } from '../../entity/task'
-import { ITaskCompletedUseCase } from './interface/ITaskCompletedUseCase'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { TaskCompletedRepository, ITaskEntity } from '../../entity/task'
+import { ITaskCompletedUseCase } from '../../usecase/task'
 
-export class TaskCompletedUseCase
+export default class TaskCompletedUseCase
   implements ITaskCompletedUseCase<ITaskEntity>
 {
   constructor(private readonly _repository: TaskCompletedRepository) {}

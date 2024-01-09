@@ -1,3 +1,3 @@
-export interface IUserReadAll<T> {
+export default interface IUserReadAll<T> {
   read(req: object): Promise<T[]>
 }

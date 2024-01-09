@@ -1,8 +1,8 @@
 import {
-  ILoginRequestDto,
-  ILoginResponseDto,
+  ILoginEntity,
   ILogin,
-  LoginRepository
+  LoginRepository,
+  LoginResponseDto
 } from './../../core/entity/auth'
 import { LoginPresentation } from './../../core/presentation/auth'
 import { LoginUseCase } from './../../core/usecase/auth'
@@ -11,10 +11,8 @@ import LoginController from './../../core/controller/auth/LoginController'
 import LoginService from './../service/LoginService'
 
 const loginMiddleware = () => {
-  const login: ILogin<ILoginRequestDto, ILoginResponseDto> = {
-    login: async (
-      body: ILoginRequestDto
-    ): Promise<ILoginResponseDto | boolean> => {
+  const login: ILogin<ILoginEntity, LoginResponseDto> = {
+    login: async (body: ILoginEntity): Promise<LoginResponseDto | boolean> => {
       return await LoginService.login(body)
     }
   }

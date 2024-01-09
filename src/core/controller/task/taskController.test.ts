@@ -1,8 +1,6 @@
 import { ITaskEntity } from '../../entity/task'
 import TaskController from './TaskController'
 import ITaskPresentation from '../../presentation/task/interface/ITaskPresentation'
-import { plainToClass } from 'class-transformer'
-import { TaskActiveDto } from '../../entity/task/dto/TaskActiveDto'
 
 describe('Presentation router task', () => {
   let mockTaskPresentation: ITaskPresentation<ITaskEntity>
@@ -11,14 +9,14 @@ describe('Presentation router task', () => {
     {
       id: 'abc',
       name: 'task 01',
-      user_id: '1',
+      user_id: 'user_id_1',
       is_completed: false,
       active: true
     },
     {
       id: 'cba',
       name: 'task 02',
-      user_id: '2',
+      user_id: 'user_id_2',
       is_completed: false,
       active: true
     }
@@ -108,43 +106,25 @@ describe('Presentation router task', () => {
     })
 
     test('should completed one task', async () => {
-      const body = {
-        id: '1',
-        completed: true
-      }
-
-      const dto = plainToClass(TaskActiveDto, body, {
-        excludeExtraneousValues: true
-      })
-
       jest
         .spyOn(mockTaskPresentation, 'completed')
         .mockImplementation(() => Promise.resolve(true))
 
       const controller = new TaskController(mockTaskPresentation)
 
-      const result = await controller.completed(tasks[0]['id'], dto)
+      const result = await controller.completed(tasks[0]['id'], tasks[0])
 
       expect(result).toEqual(true)
     })
 
     test('should active one task', async () => {
-      const body = {
-        id: '1',
-        is_Active: true
-      }
-
-      const dto = plainToClass(TaskActiveDto, body, {
-        excludeExtraneousValues: true
-      })
-
       jest
         .spyOn(mockTaskPresentation, 'active')
         .mockImplementation(() => Promise.resolve(true))
 
       const controller = new TaskController(mockTaskPresentation)
 
-      const result = await controller.active(tasks[0]['id'], dto)
+      const result = await controller.active(tasks[0]['id'], tasks[0])
 
       expect(result).toEqual(true)
     })

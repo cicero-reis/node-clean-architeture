@@ -1,10 +1,12 @@
 import { plainToClass } from 'class-transformer'
-import { ITaskEntity } from '../../ITaskEntity'
-import { ITaskRepository } from './ITaskRepository'
-import { ITaskCompleted } from './ITaskCompleted'
-import { TaskCompletedDto } from '../../dto/TaskCompletedDto'
+import ITaskEntity from '../../ITaskEntity'
+import ITaskRepository from './ITaskRepository'
+import ITaskCompleted from './ITaskCompleted'
+import TaskCompletedDto from '../../dto/TaskCompletedDto'
 
-export class TaskCompletedRepository implements ITaskRepository<ITaskEntity> {
+export default class TaskCompletedRepository
+  implements ITaskRepository<ITaskEntity>
+{
   constructor(private readonly _repository: ITaskCompleted<ITaskEntity>) {}
 
   async completedOne(

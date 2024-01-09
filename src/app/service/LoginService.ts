@@ -1,4 +1,4 @@
-import { ILoginRequestDto, ILoginResponseDto } from '../../core/entity/auth'
+import { ILoginEntity, LoginResponseDto } from '../../core/entity/auth'
 import User from '../schema/userShema'
 import correctPassword from '../utils/auth/correctPassword'
 import createToken from '../utils/auth/createToken'
@@ -6,8 +6,8 @@ import createTokenOpaco from '../utils/auth/createTokenOpaco'
 
 export default class LoginService {
   static login = async (
-    body: ILoginRequestDto
-  ): Promise<ILoginResponseDto | boolean> => {
+    body: ILoginEntity
+  ): Promise<LoginResponseDto | boolean> => {
     try {
       const { email, password } = body
       const user = await User.findOne({ email }).select('+password')

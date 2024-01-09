@@ -1,8 +1,9 @@
-import { TaskActiveRepository } from '../../entity/task'
-import { ITaskActiveUseCase } from './interface/ITaskActiveUseCase'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { TaskActiveRepository, ITaskEntity } from '../../entity/task'
+import { ITaskActiveUseCase } from '../../usecase/task'
 
-export class TaskActiveUseCase implements ITaskActiveUseCase<ITaskEntity> {
+export default class TaskActiveUseCase
+  implements ITaskActiveUseCase<ITaskEntity>
+{
   constructor(private readonly _repository: TaskActiveRepository) {}
 
   async execute(

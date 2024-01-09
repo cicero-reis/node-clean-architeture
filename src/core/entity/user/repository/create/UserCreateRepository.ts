@@ -1,11 +1,15 @@
 import { plainToInstance } from 'class-transformer'
-import { IUserEntity } from '../../IUserEntity'
-import { IUserRepository } from './IUserRepository'
-import { IUserCreate } from './IUserCreate'
-import { UserCreateDto } from '../../dto/UserCreateDto'
-import { UserReadDto } from '../../dto/UserReadDto'
+import {
+  IUserEntity,
+  IUserCreateRepository,
+  IUserCreate,
+  UserCreateDto,
+  UserReadDto
+} from '../../index'
 
-export class UserCreateRepository implements IUserRepository<IUserEntity> {
+export default class UserCreateRepository
+  implements IUserCreateRepository<IUserEntity>
+{
   constructor(private readonly _repository: IUserCreate<IUserEntity>) {}
 
   async insertOne(user: IUserEntity): Promise<IUserEntity> {

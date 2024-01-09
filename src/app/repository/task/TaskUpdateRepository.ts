@@ -1,6 +1,6 @@
 import Task from '../../schema/taskShema'
 import { UserReadOneRepository } from '../user'
-import { ITaskEntity } from '../../../core/entity/task/ITaskEntity'
+import { ITaskEntity } from '../../../core/entity/task'
 
 export class TaskUpdateRepository {
   static async updateOne(

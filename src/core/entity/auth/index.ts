@@ -1,13 +1,15 @@
 import ILogin from './repository/ILogin'
+import ILoginEntity from './ILoginEntity'
 import LoginRepository from './repository/LoginRepository'
-import ILoginRequestDto from './dto/ILoginRequestDto'
+import LoginRequestDto from './dto/LoginRequestDto'
 import ILoginRepository from './repository/ILoginRepository'
-import ILoginResponseDto from './dto/ILoginResponseDto'
+import LoginResponseDto from './dto/LoginResponseDto'
 
 export {
   ILogin,
+  ILoginEntity,
   ILoginRepository,
-  ILoginRequestDto,
-  ILoginResponseDto,
+  LoginRequestDto,
+  LoginResponseDto,
   LoginRepository
 }

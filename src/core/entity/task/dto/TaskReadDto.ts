@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer'
 
-export class TaskReadDto {
+export default class TaskReadDto {
   @Expose()
   id!: string
   @Expose()

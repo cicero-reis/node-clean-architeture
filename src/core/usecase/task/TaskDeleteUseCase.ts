@@ -1,7 +1,7 @@
-import { TaskDeleteRepository } from '../../entity/task/repository/delete/TaskDeleteRepository'
-import { ITaskDeleteUseCase } from './interface/ITaskDeleteUseCase'
+import { TaskDeleteRepository } from '../../entity/task'
+import { ITaskDeleteUseCase } from '../../usecase/task'
 
-export class TaskDeleteUseCase implements ITaskDeleteUseCase {
+export default class TaskDeleteUseCase implements ITaskDeleteUseCase {
   constructor(private readonly _repository: TaskDeleteRepository) {}
 
   async execute(id: string): Promise<boolean | null | never> {

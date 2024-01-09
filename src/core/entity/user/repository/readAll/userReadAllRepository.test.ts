@@ -1,8 +1,10 @@
-import { IUserEntity } from '../../IUserEntity'
-import { UserReadAllRepository } from './UserReadAllRepository'
+import {
+  IUserEntity,
+  UserReadAllRepository,
+  IUserReadAll,
+  UserReadDto
+} from '../../index'
 import { plainToInstance } from 'class-transformer'
-import { IUserReadAll } from './IUserReadAll'
-import { UserReadDto } from '../../dto/UserReadDto'
 
 describe('Read one User', () => {
   let mockUserRepository: IUserReadAll<IUserEntity>
@@ -14,7 +16,7 @@ describe('Read one User', () => {
   beforeEach(() => jest.clearAllMocks())
 
   test('sould read one User', async () => {
-    const Users = [
+    const user = [
       {
         id: '12345',
         name: 'User 01',
@@ -35,7 +37,7 @@ describe('Read one User', () => {
       }
     ]
 
-    const response = plainToInstance(UserReadDto, Users, {
+    const response = plainToInstance(UserReadDto, user, {
       excludeExtraneousValues: true
     })
 

@@ -17,17 +17,57 @@
   ],
   "tags": [
     {
-      "name": "Tasks",
-      "description": "This project consists of a basic system for tasks management, using CRUD (Create, Read, Update, Delete) operations."
+      "name": "Login",
+      "description": "This project consists of a user authentication system."
     },
     {
       "name": "Users",
       "description": "This project consists of a basic system for user management, using CRUD (Create, Read, Update, Delete) operations."
+    },
+    {
+      "name": "Tasks",
+      "description": "This project consists of a basic system for tasks management, using CRUD (Create, Read, Update, Delete) operations."
     }
   ],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login",
+        "requestBody": {
+          "description": "Login Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/LoginBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "headers": {
+              "authorization": {
+                "description": "It is generated during authentication and will be requested several times while using the API.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Login"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "tags": ["Users"],
@@ -42,7 +82,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": ["Users"],
@@ -61,15 +106,23 @@
         "produces": ["application/json"],
         "responses": {
           "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User created successfully\",\r\n  \"data\": {}\r\n}",
-            "schema": {
-              "$ref": "#/definitions/id"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/users/{id}": {
@@ -110,7 +163,12 @@
           "404": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "summary": "Update User",
@@ -138,19 +196,24 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User updated successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/User"
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
             "description": "Fail"
-          },
-          "404": {
-            "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "summary": "Remove a User",
@@ -168,21 +231,58 @@
         ],
         "responses": {
           "200": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"User deleted successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/id"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
-          "404": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Not found\"\r\n}"
+          "400": {
+            "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/tasks": {
       "get": {
         "tags": ["Tasks"],
         "summary": "List All Tasks",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -193,7 +293,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": ["Tasks"],
@@ -211,16 +316,24 @@
         },
         "produces": ["application/json"],
         "responses": {
-          "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task created successfully\",\r\n  \"data\": {}\r\n}",
-            "schema": {
-              "$ref": "#/definitions/id"
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/tasks/{id}": {
@@ -260,7 +373,12 @@
           "404": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "summary": "Update Task",
@@ -288,10 +406,13 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task updated successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/Task"
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
@@ -300,7 +421,12 @@
           "404": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "summary": "Remove a Task",
@@ -318,15 +444,20 @@
         ],
         "responses": {
           "200": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task deleted successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/id"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
-          },
-          "404": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Not found\"\r\n}"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/tasks/completed/{id}": {
@@ -365,10 +496,13 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task completed successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/Task"
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
@@ -377,7 +511,12 @@
           "404": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/tasks/active/{id}": {
@@ -416,10 +555,13 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "{\r\n  \"status\": \"success\",\r\n  \"message\": \"Task active successfully\"\r\n}",
-            "schema": {
-              "$ref": "#/definitions/Task"
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Response"
+                }
+              }
             }
           },
           "400": {
@@ -428,7 +570,12 @@
           "404": {
             "description": "Fail"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -436,6 +583,36 @@
     "id": {
       "properties": {
         "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginBody": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         }
       }
@@ -528,6 +705,15 @@
             "$ref": "#/definitions/Task"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

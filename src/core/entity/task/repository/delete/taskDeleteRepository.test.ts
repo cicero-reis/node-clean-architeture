@@ -1,5 +1,4 @@
-import { TaskDeleteRepository } from './TaskDeleteRepository'
-import { ITaskDelete } from './ITaskDelete'
+import { TaskDeleteRepository, ITaskDelete } from '../../index'
 
 describe('Delete Task', () => {
   let mockTaskRepository: ITaskDelete

@@ -1,7 +1,7 @@
-import { UserDeleteRepository } from '../../entity/user/repository/delete/UserDeleteRepository'
-import { IUserDeleteUseCase } from './interface/IUserDeleteUseCase'
+import { UserDeleteRepository } from '../../entity/user'
+import { IUserDeleteUseCase } from './index'
 
-export class UserDeleteUseCase implements IUserDeleteUseCase {
+export default class UserDeleteUseCase implements IUserDeleteUseCase {
   constructor(private readonly _repository: UserDeleteRepository) {}
 
   async execute(id: string): Promise<boolean | null | never> {

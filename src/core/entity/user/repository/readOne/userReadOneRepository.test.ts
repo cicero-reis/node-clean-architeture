@@ -1,8 +1,10 @@
-import { IUserEntity } from '../../IUserEntity'
-import { UserReadOneRepository } from './UserReadOneRepository'
+import {
+  IUserEntity,
+  UserReadOneRepository,
+  IUserReadOne,
+  UserReadDto
+} from '../../index'
 import { plainToClass } from 'class-transformer'
-import { IUserReadOne } from './IUserReadOne'
-import { UserReadDto } from '../../dto/UserReadDto'
 
 describe('Read one User', () => {
   let mockUserRepository: IUserReadOne<IUserEntity>

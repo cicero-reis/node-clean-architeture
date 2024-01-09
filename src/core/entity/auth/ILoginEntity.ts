@@ -1,4 +1,4 @@
-export default interface ILoginRequestDto {
+export default interface ILoginEntity {
   email: string
   password: string
   acessToken?: string

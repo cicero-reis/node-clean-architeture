@@ -1,9 +1,11 @@
-import { IUserEntity } from '../../IUserEntity'
-import { UserCreateDto } from '../../dto/UserCreateDto'
-import { UserReadDto } from '../../dto/UserReadDto'
-import { UserCreateRepository } from './UserCreateRepository'
+import {
+  IUserEntity,
+  UserCreateDto,
+  UserReadDto,
+  UserCreateRepository,
+  IUserCreate
+} from '../../index'
 import { plainToClass, plainToInstance } from 'class-transformer'
-import { IUserCreate } from './IUserCreate'
 
 describe('Create user', () => {
   let mockUserRepository: IUserCreate<IUserEntity>

@@ -1,8 +1,9 @@
-import { TaskUpdateRepository } from '../../entity/task/repository/update/TaskUpdateRepository'
-import { ITaskUpdateUseCase } from './interface/ITaskUpdateUseCase'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { TaskUpdateRepository, ITaskEntity } from '../../entity/task'
+import { ITaskUpdateUseCase } from '../../usecase/task'
 
-export class TaskUpdateUseCase implements ITaskUpdateUseCase<ITaskEntity> {
+export default class TaskUpdateUseCase
+  implements ITaskUpdateUseCase<ITaskEntity>
+{
   constructor(private readonly _repository: TaskUpdateRepository) {}
 
   async execute(

@@ -1,3 +1,3 @@
-export interface ITaskRepository<T> {
+export default interface ITaskUpdateRepository<T> {
   updateOne: (id: string, t: T) => Promise<boolean | null | never>
 }

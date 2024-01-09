@@ -1,8 +1,9 @@
-import { UserReadAllRepository } from '../../entity/user/repository/readAll/UserReadAllRepository'
-import { IUserGetAllUseCase } from './interface/IUserGetAllUseCase'
-import { IUserEntity } from '../../entity/user/IUserEntity'
+import { UserReadAllRepository, IUserEntity } from '../../entity/user'
+import { IUserGetAllUseCase } from './index'
 
-export class UserGetAllUseCase implements IUserGetAllUseCase<IUserEntity> {
+export default class UserGetAllUseCase
+  implements IUserGetAllUseCase<IUserEntity>
+{
   constructor(private readonly _repository: UserReadAllRepository) {}
 
   async execute(req: object): Promise<IUserEntity[]> {

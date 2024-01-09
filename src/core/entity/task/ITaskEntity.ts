@@ -1,4 +1,4 @@
-export interface ITaskEntity {
+export default interface ITaskEntity {
   id: string
   name: string
   user_id: string

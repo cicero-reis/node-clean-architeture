@@ -1,8 +1,6 @@
-import { ITaskEntity } from '../../ITaskEntity'
-import { TaskActiveDto } from '../../dto/TaskActiveDto'
-import { TaskActiveRepository } from './TaskActiveRepository'
-import { plainToClass } from 'class-transformer'
-import { ITaskActive } from './ITaskActive'
+import ITaskEntity from '../../ITaskEntity'
+import TaskActiveRepository from './TaskActiveRepository'
+import ITaskActive from './ITaskActive'
 
 describe('Update Task active', () => {
   let mockTaskRepository: ITaskActive<ITaskEntity>
@@ -15,13 +13,12 @@ describe('Update Task active', () => {
 
   test('sould update active', async () => {
     const body = {
-      id: '1',
-      is_Active: true
+      id: 'task_id',
+      name: 'Task 01',
+      user_id: 'user_id',
+      is_completed: true,
+      active: true
     }
-
-    const dto = plainToClass(TaskActiveDto, body, {
-      excludeExtraneousValues: true
-    })
 
     jest
       .spyOn(mockTaskRepository, 'active')
@@ -29,7 +26,7 @@ describe('Update Task active', () => {
 
     const repository = new TaskActiveRepository(mockTaskRepository)
 
-    const result = await repository.activeOne(body.id, dto)
+    const result = await repository.activeOne(body.id, body)
 
     expect(result).toBe(true)
   })

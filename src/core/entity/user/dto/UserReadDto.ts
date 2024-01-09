@@ -1,6 +1,6 @@
 import { Expose, Exclude } from 'class-transformer'
 
-export class UserReadDto {
+export default class UserReadDto {
   @Expose()
   id!: string
   @Expose()

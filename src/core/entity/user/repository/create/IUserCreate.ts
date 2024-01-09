@@ -1,3 +1,3 @@
-export interface IUserCreate<T> {
+export default interface IUserCreate<T> {
   create(t: T): Promise<T>
 }

@@ -1,6 +1,6 @@
 import { Exclude, Expose } from 'class-transformer'
 
-export class TaskActiveDto {
+export default class TaskActiveDto {
   @Expose()
   id!: string
   @Exclude()

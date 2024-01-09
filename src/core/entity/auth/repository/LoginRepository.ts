@@ -1,22 +1,25 @@
-import ILogin from './ILogin'
-import ILoginRepository from './ILoginRepository'
-import ILoginRequestDto from '../dto/ILoginRequestDto'
-import ILoginResponseDto from '../dto/ILoginResponseDto'
+import {
+  ILogin,
+  ILoginEntity,
+  ILoginRepository,
+  LoginRequestDto,
+  LoginResponseDto
+} from './../index'
+import { plainToInstance } from 'class-transformer'
 
 export default class LoginRepository
-  implements ILoginRepository<ILoginRequestDto, ILoginResponseDto>
+  implements ILoginRepository<ILoginEntity, LoginResponseDto>
 {
   constructor(
-    private readonly _repository: ILogin<ILoginRequestDto, ILoginResponseDto>
+    private readonly _repository: ILogin<ILoginEntity, LoginResponseDto>
   ) {}
 
-  async login(body: ILoginRequestDto): Promise<ILoginResponseDto | boolean> {
-    const { email, password } = body
-
-    const result = await this._repository.login({ email, password })
-
-    if (typeof result === 'boolean') return result
-    const { acessToken, refreshToken } = result
-    return { acessToken, refreshToken }
+  async login(body: ILoginEntity): Promise<LoginResponseDto | boolean> {
+    const response = await this._repository.login(
+      plainToInstance(LoginRequestDto, body, { excludeExtraneousValues: true })
+    )
+    return plainToInstance(LoginResponseDto, response, {
+      excludeExtraneousValues: true
+    })
   }
 }

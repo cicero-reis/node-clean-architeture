@@ -1,3 +1,3 @@
-export interface IUserRepository<T> {
+export default interface IUserUpdateRepository<T> {
   updateOne: (id: string, t: T) => Promise<boolean | null | never>
 }

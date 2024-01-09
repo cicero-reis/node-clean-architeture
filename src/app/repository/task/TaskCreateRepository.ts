@@ -1,5 +1,5 @@
 import Task from '../../schema/taskShema'
-import { ITaskEntity } from '../../../core/entity/task/ITaskEntity'
+import { ITaskEntity } from '../../../core/entity/task'
 
 export class TaskCreateRepository {
   static async insertOne(task: ITaskEntity): Promise<ITaskEntity> {

@@ -1,8 +1,9 @@
-import { UserUpdateRepository } from '../../entity/user/repository/update/UserUpdateRepository'
-import { IUserUpdateUseCase } from './interface/IUserUpdateUseCase'
-import { IUserEntity } from '../../entity/user/IUserEntity'
+import { UserUpdateRepository, IUserEntity } from '../../entity/user'
+import { IUserUpdateUseCase } from './index'
 
-export class UserUpdateUseCase implements IUserUpdateUseCase<IUserEntity> {
+export default class UserUpdateUseCase
+  implements IUserUpdateUseCase<IUserEntity>
+{
   constructor(private readonly _repository: UserUpdateRepository) {}
 
   async execute(

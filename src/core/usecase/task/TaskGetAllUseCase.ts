@@ -1,8 +1,9 @@
-import { TaskReadAllRepository } from '../../entity/task/repository/readAll/TaskReadAllRepository'
-import { ITaskGetAllUseCase } from './interface/ITaskGetAllUseCase'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { TaskReadAllRepository, ITaskEntity } from '../../entity/task'
+import { ITaskGetAllUseCase } from '../../usecase/task'
 
-export class TaskGetAllUseCase implements ITaskGetAllUseCase<ITaskEntity> {
+export default class TaskGetAllUseCase
+  implements ITaskGetAllUseCase<ITaskEntity>
+{
   constructor(private readonly _repository: TaskReadAllRepository) {}
 
   async execute(req: object): Promise<ITaskEntity[]> {

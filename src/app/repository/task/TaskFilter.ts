@@ -12,24 +12,24 @@ export default class TaskFilter {
   }
 
   filter(): this {
-    if (this.req.body.name) {
+    if (this.req.query.name) {
       this.query.where('name', {
-        $regex: '.*' + this.req.body.name + '.*'
+        $regex: '.*' + this.req.query.name + '.*'
       })
     }
     return this
   }
 
   sort(): this {
-    this.req.body.sort
-      ? this.query.sort(this.req.body.page)
+    this.req.query.sort
+      ? this.query.sort(this.req.query.page)
       : this.query.sort('name')
     return this
   }
 
   paginate(): FilterQuery<ITaskEntity> {
-    const page = Number(this.req.body.page) * 1 || 1
-    const limit = Number(this.req.body.limit) * 1 || 20
+    const page = Number(this.req.query.page) * 1 || 1
+    const limit = Number(this.req.query.limit) * 1 || 20
     const skip = (page - 1) * limit
     this.query.skip(skip).limit(limit)
 

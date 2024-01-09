@@ -19,7 +19,11 @@ const userRouter = (userController: UserController) => {
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = await userController.show(req.params.id)
-        res.status(200).json(user)
+        if (user) res.status(200).json(user)
+        res.status(400).json({
+          status: 'error',
+          message: 'Not Found'
+        })
       } catch (err) {
         next(err)
       }
@@ -44,10 +48,11 @@ const userRouter = (userController: UserController) => {
     '/:id',
     async (req: Request, res: Response, next: NextFunction) => {
       try {
-        await userController.update(req.params.id, req.body)
-        res.status(201).json({
-          status: 'success',
-          message: 'User updated successfully'
+        const user = await userController.update(req.params.id, req.body)
+        const status = user ? 201 : 400
+        res.status(status).json({
+          status: user ? 'success' : 'error',
+          message: user ? 'User updated successfully' : 'Not found'
         })
       } catch (err) {
         next(err)
@@ -60,11 +65,10 @@ const userRouter = (userController: UserController) => {
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = await userController.destroy(req.params.id)
-        const message = user ? 'User deleted successfully' : 'Not found'
         const status = user ? 200 : 404
         res.status(status).json({
-          status: 'success',
-          message: message
+          status: user ? 'success' : 'error',
+          message: user ? 'User deleted successfully' : 'Not found'
         })
       } catch (err) {
         next(err)

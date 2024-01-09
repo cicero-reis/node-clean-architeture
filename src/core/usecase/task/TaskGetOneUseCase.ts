@@ -1,8 +1,9 @@
-import { TaskReadOneRepository } from '../../entity/task/repository/readOne/TaskReadOneRepository'
-import { ITaskGetOneUseCase } from './interface/ITaskGetOneUseCase'
-import { ITaskEntity } from '../../entity/task/ITaskEntity'
+import { TaskReadOneRepository, ITaskEntity } from '../../entity/task'
+import { ITaskGetOneUseCase } from '../../usecase/task'
 
-export class TaskGetOneUseCase implements ITaskGetOneUseCase<ITaskEntity> {
+export default class TaskGetOneUseCase
+  implements ITaskGetOneUseCase<ITaskEntity>
+{
   constructor(private readonly _repository: TaskReadOneRepository) {}
 
   async execute(id: string): Promise<ITaskEntity | null> {

@@ -1,7 +1,6 @@
-import { ITaskRepository } from './ITaskRepository'
-import { ITaskDelete } from './ITaskDelete'
+import { ITaskDeleteRepository, ITaskDelete } from '../../index'
 
-export class TaskDeleteRepository implements ITaskRepository {
+export default class TaskDeleteRepository implements ITaskDeleteRepository {
   constructor(private readonly _repository: ITaskDelete) {}
 
   async deleteOne(id: string): Promise<boolean | null | never> {

@@ -5,7 +5,7 @@ import {
   IUserUpdateUseCase,
   IUserDeleteUseCase
 } from '../../usecase/user/index'
-import { IUserEntity } from '../../entity/user/IUserEntity'
+import IUserEntity from '../../entity/user/IUserEntity'
 import IUserPresentation from './interface/IUserPresentation'
 
 export default class UserPresentation

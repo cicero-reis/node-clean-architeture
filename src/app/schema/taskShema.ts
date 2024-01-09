@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose'
-import { ITaskEntity } from '../../core/entity/task/ITaskEntity'
+import { ITaskEntity } from '../../core/entity/task'
 import User from './userShema'
 
 interface ITask extends Document {

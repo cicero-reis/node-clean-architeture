@@ -1,5 +1,5 @@
 import Task from '../../schema/taskShema'
-import { ITaskEntity } from '../../../core/entity/task/ITaskEntity'
+import { ITaskEntity } from '../../../core/entity/task'
 import { Request } from 'express'
 import TaskFilter from './TaskFilter'
 
